@@ -1,0 +1,951 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0089)https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html -->
+<html xmlns:s="http://xbrl.org/specification/2007" xmlns:diff="http://xbrl.org/specification/2007/diff"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Technical Considerations for the use of XBRL Dimensions 1.0</title><link rel="stylesheet" type="text/css" href="./Technical Considerations for the use of XBRL Dimensions 1.0_files/styles.css"><script language="JavaScript" type="text/javascript">
+      // feel free to do something more elaborate with this.
+      // w is a global for the 'pop up' window.
+      var w = null;
+      var width = 360;
+      var height = 120;
+      function openit(name,text) {
+        if (navigator.appName == "Microsoft Internet Explorer") {
+        if (!w) w = window.open("", "w", "width="+width+",height="+height+",scrollbars=no,titlebar=no");
+        w.innerHeight = height;
+        w.innerWidth = width;
+        w.moveTo(window.screenLeft+event.clientX,window.screenTop+event.clientY);
+        w.document.open();
+        w.document.write(text);
+        w.focus();
+        }
+}
+
+function hideit() {  
+if (navigator.appName == "Microsoft Internet Explorer") {
+  w.document.close();
+  w.blur();
+  }
+}
+        </script></head><body><div class="head">
+<h1><a name="title" id="title"></a>Technical Considerations for the use of XBRL Dimensions 1.0</h1>
+<h2>
+              Document
+             25 March 2015</h2><p>Copyright © 2015 XBRL International Inc., All Rights Reserved.</p><dl><dt>This version:</dt><dd><a href="http://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html">&lt;http://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html&gt;</a></dd><dt>Editor:</dt><dd><a name="p-pdw" id="p-pdw"></a>
+        Paul Warren, 
+         XBRL International
+         <a href="mailto:pdw@xbrl.org">&lt;pdw@xbrl.org&gt;</a>
+      </dd><dt>Contributors:</dt><dd><a name="p-vm" id="p-vm"></a>
+        Gianluca Garbellotto, 
+         IPHIX
+         <a href="mailto:gg@iphix.net">&lt;gg@iphix.net&gt;</a>
+      </dd><dd><a name="p-mrg" id="p-mrg"></a>
+        Mark Goodhand, 
+         CoreFiling
+         <a href="mailto:mrg@corefiling.com">&lt;mrg@corefiling.com&gt;</a>
+      </dd><dd><a name="p-vm" id="p-vm"></a>
+        Victor Morilla, 
+         Banco de España
+         <a href="mailto:victor.morilla@bde.es">&lt;victor.morilla@bde.es&gt;</a>
+      </dd></dl><hr><div><h2><a name="status" id="status"></a>Status</h2><p>Circulation of this 
+              Document
+             is unrestricted. 
+            Other documents may supersede this document. 
+          
+            Recipients are invited to submit comments to
+          <a href="mailto:spec@xbrl.org">spec@xbrl.org</a>,
+          
+            and to submit notification of any relevant patent rights 
+            of which they are aware and provide supporting 
+            documentation.
+          </p></div><div>
+<h2><a name="abstract" id="abstract"></a>Abstract</h2>
+      <p>
+
+This document identifies a number of technical issues relating to the use of
+certain features of the XBRL Dimensions specification, and provides a number of
+specific recommendations for their use.
+
+      </p>
+    </div></div><div class="toc">
+<h2><a name="contents" id="contents"></a>Table of Contents</h2><p class="toc"><span>1 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-intro">Introduction</a><br>
+<span>   1.1 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-notation">Notation</a><br>
+</span></span><span>2 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-segment-vs-scenario">Segment and scenario</a><br>
+<span>   2.1 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-segment-and-scenario-recommendations">Recommendations</a><br>
+</span></span><span>3 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-open-hypercubes">Dimensional validity</a><br>
+<span>   3.1 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-open-hypercube-validation-issues">Open hypercubes</a><br>
+</span><span>   3.2 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-use-cases">Use cases for open hypercubes</a><br>
+</span><span>   3.3 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-negative-open-hypercubes">Negative hypercubes</a><br>
+</span><span>   3.4 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-non-dimensional-facts">Non-dimensional facts</a><br>
+</span><span>   3.5 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-open-hypercube-recommendation">Recommendations</a><br>
+</span></span><span>4 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-positive-and-negative-hypercubes">Positive and negative hypercubes</a><br>
+<span>   4.1 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-positive-negative-recommendation">Recommendation</a><br>
+</span></span><span>5 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-dimension-defaults">Dimension defaults</a><br>
+<span>   5.1 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-dimension-defaults-recommendation">Recommendation</a><br>
+</span></span><span>6 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-complex-typed-dimensions">Complex typed dimensions</a><br>
+<span>   6.1 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-complex-typed-dimensions-recommendations">Recommendations</a><br>
+</span></span></p>
+<h3><a name="appendices" id="appendices"></a>Appendices</h3><p class="toc"><span>A <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-references">References</a><br>
+</span><span>B <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-ip-status">Intellectual property status (non-normative)</a><br>
+</span><span>C <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-acknowledgements">Acknowledgements (non-normative)</a><br>
+</span><span>D <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-history">Document history</a><br>
+</span><span>E <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-corrections">Errata corrections in this document</a><br>
+</span></p><h3><a name="figures" id="figures"></a>Examples</h3><p class="toc">1 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#hypercube-validation">Validity of facts against individual hypercubes</a><br>2 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#hypercube-validation">Validity of facts against multiple hypercubes</a><br>3 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#negative-hypercube-validation">Validity of facts against negative hypercubes</a><br>4 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#non-dimensional%20facts">Dimensions used on non-dimensional facts</a><br>5 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#example-positive-negative">Defining invalid regions</a><br>6 <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#dimension-defaults">Defaulted dimensions</a><br></p>
+<h3><a name="definitions" id="definitions"></a>Definition</h3><p class="toc"><a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#term-fdv">Full Dimensional Validity</a><br></p></div><hr><div class="body">
+    <div class="div1"><a name="sec-intro" id="sec-intro"></a>
+      <h1>1 Introduction</h1>
+      <p>
+
+The XBRL Dimensions specification <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#DIMENSIONS">[DIMENSIONS]</a> reached
+Recommendatation status in 2006.  Since then, practical usage of the
+specification has uncovered a number of features in the specification which are
+either unnecesary, or which can lead to undesirable results if not used
+carefully.  This document enumerates these issues, and where possible, provides
+guidance on if and how such features should be used.
+
+      </p>
+      <p>
+
+This scope of this Working Group Note, published by the Base Specification and
+Maintenance Working Group is restricted to the technical implications of
+particular dimensional constructs and features, and is not intended to provide
+comprehensive best practice guidance on the use of XBRL Dimensions.
+
+      </p>
+      <div class="div2"><a name="sec-notation" id="sec-notation"></a>
+        <h2>1.1 Notation</h2>
+        <p>
+  
+In order to make examples more readable, this document uses a short-hand
+notation to describe dimensional facts and hypercubes.  The following denotes a
+fact reported against concept "C" with member "m1" for dimension "d1" and
+member "m2" for dimension "d2":
+
+        </p>
+        <p class="code-paragraph">
+          <code>
+ C[d1=m1,d2=m2] 
+          </code>
+        </p>
+        <p>
+The following example denotes a hypercube, H, with a dimension A with usable members a1 and a2, and a
+dimension B, with usable members b1 and b2:
+        </p>
+        <p class="code-paragraph">
+          <code>
+ H[[A={a1,a2},B={b1,b2}]]
+          </code>
+        </p>
+        <p>
+        </p>
+      </div>
+    </div>
+    <div class="div1"><a name="sec-segment-vs-scenario" id="sec-segment-vs-scenario"></a>
+      <h1>2 Segment and scenario</h1>
+      <p>
+     
+The XBRL v2.1 specification provided two containers for providing additional
+information about the nature of a reported fact: the <code class="element"> &lt;segment&gt; </code> and
+<code class="element"> &lt;scenario&gt; </code> elements contained within the context.  Both of these
+containers can contain arbitrary XML content, with the XBRL v2.1 specification
+providing no mechanism for defining or constraining the information that
+appears within these elements.
+
+      </p>
+      <p>
+
+The XBRL Dimensions specification provides a more structured way to define
+additional information about the nature of a reported fact.  This is
+preferrable to using arbitrary XML elements within segment and scenario, as the
+meaning of XBRL Dimensions can be precisely defined and constrained using an
+XBRL taxonomy.
+
+      </p>
+      <p>
+
+The syntactic constructs which appear in an XBRL instance document to represent
+such dimensional qualifications may appear within either the <code class="element"> &lt;segment&gt; </code> or
+<code class="element"> &lt;scenario&gt; </code> elements, depending on the definition of the relevant hypercube.
+
+      </p>
+      <p>
+
+As the meaning of an XBRL Dimension can be defined precisely and completely
+within an XBRL taxonomy, separately grouping them into the broad categories of
+"segment" and "scenario" offers little additional value.  As the decision as to
+whether an individual dimension appears within <code class="element"> &lt;segment&gt; </code> or
+<code class="element"> &lt;scenario&gt; </code> is attached to the hypercube as a whole rather than to
+individual dimensions, attempting to classify dimensions between the two
+introduces additional complexity as additional hypercubes must be introduced.
+
+      </p>
+      <p>
+
+Common practice in taxonomy design is to select one or other out of the two
+options, and to use it for all hypercubes within a taxonomy.  The choice
+between segment and scenario is arbitrary: in effect, the greater precision of
+dimension definition offered by the XBRL Dimensions specification renders the
+broad, binary classification offered by the XBRL v2.1 specification redundant
+from a technical perspective.
+
+      </p>
+      <div class="div2"><a name="sec-segment-and-scenario-recommendations" id="sec-segment-and-scenario-recommendations"></a>
+        <h2>2.1 Recommendations</h2>
+        <ul>
+          <li>The <code class="element"> &lt;segment&gt; </code> and <code class="element"> &lt;scenario&gt; </code> elements should only be used to contain XBRL Dimensions, and should not be used to contain other XML elements (this will be enforced where a <code class="element"> &lt;segment&gt; </code> or <code class="element"> &lt;scenario&gt; </code> element is constrained by a closed hypercube)</li>
+          <li>A taxonomy should use one or other of <code class="element"> &lt;segment&gt; </code> and <code class="element"> &lt;scenario&gt; </code> for its hypercubes exclusively.</li>
+          <li>In the absence of reasons to do otherwise (for example, compatibility with other taxonomies or consistency with prior versions), it is suggested that new taxonomies define hypercubes for use on <code class="element"> &lt;scenario&gt; </code> only.</li>
+          <li>The container that is not used for dimensions should be empty.  It is recommended that this is enforced by external validation rather than taxonomy constructs.</li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="div1"><a name="sec-open-hypercubes" id="sec-open-hypercubes"></a>
+      <h1>3 Dimensional validity</h1>
+      <p>
+
+It is desirable, and most likely expected, behaviour that an XBRL fact which is
+considered dimensionally valid has had each of its associated dimensional
+values validated against a domain that is defined in the taxonomy as being
+applicable to that dimension.  <span class="definition"><a name="term-fdv" id="term-fdv" title="Full Dimensional Validity"></a>We shall refer to this property as <span class="term">Full
+Dimensional Validity</span></span>
+
+      </p>
+      <p>
+
+There are a number of ways of using the XBRL Dimensions specification <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#DIMENSIONS">[DIMENSIONS]</a> 
+which allow a fact to be considered Dimensionally Valid without requiring <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#term-fdv">Full
+Dimensional Validity</a>.  This section outlines these scenarios, and provides
+recommendations for avoiding them.
+
+      </p>
+      <p>
+
+Where <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#term-fdv">Full Dimensional Validity</a> is not
+enforced, no assumptions can be made about the unvalidated dimensional values.
+In the case of an explicit dimensional value, there is no guarantee that the
+referenced member exists in the taxonomy, meaning that a process may not be
+able to find labels or other meta-data for the member.  Further, even if the
+member does exist as a concept, there is no information available about the
+relative ordering or hierarchy between dimensional members.  In the case of a
+typed dimensional value, there is no requirement that the value is checked
+against the corresponding data type.
+
+      </p>
+      <p>
+     
+The discussion in this section assumes that the above recommendation to use
+only one of <code class="element"> &lt;segment&gt; </code> and <code class="element"> &lt;scenario&gt; </code> for dimensions, and that
+the other container is enforced to be empty.
+
+      </p>
+      <div class="div2"><a name="sec-open-hypercube-validation-issues" id="sec-open-hypercube-validation-issues"></a>
+        <h2>3.1 Open hypercubes</h2>
+        <p>
+     
+The XBRL Dimensions specification allows hypercubes to be declared as either
+"open" or "closed".  This alters the validation rules that are applied when
+considering whether a fact with dimensions is valid.  
+
+        </p>
+        <p>
+
+  Initially, we will consider only hypercubes that are associated to
+  concepts by an "all" relationship (or "positive hypercubes").  Hypercubes
+  associate via "notAll" relationships ("negative hypercubes") are discussed
+  later in <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#sec-negative-open-hypercubes"><b> Section 3.3</b></a>.
+
+        </p>
+        <p>
+
+  In order to be considered valid against a closed hypercube, a fact must
+  include a dimension value for each dimension associated with that hypercube
+  (except for those with dimension defaults, which may be omitted), and may not
+  include dimension values for any other dimensions.
+      
+        </p>
+        <p>
+
+  On the other hand, a fact will be considered valid against an open hypercube
+  even if it includes values for dimensions that are not part of the hypercube,
+  provided that it includes a valid value for each dimension that is part of the
+  hypercube (or omits those with dimension defaults).
+
+        </p>
+
+        <div class="chunkHeading"><a name="hypercube-validation" id="hypercube-validation"></a><p>Example 1: Validity of facts against individual hypercubes</p></div><div class="nonNormativeExample">
+          
+          <p>
+  For example, consider a concept C associated with hypercube H1[[A={a},B={b}]]
+  by an "all" relationship.  Facts have the following validity against this
+  hypercube:
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Fact</th><th>Hypercube<br> Open/Closed</th><th>Validity</th><th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>C[A=a,B=b]</td><td>Either</td><td>Valid</td><td></td>
+              </tr>
+              <tr>
+                <td>C[A=a,B=x]</td><td>Either</td><td>Invalid</td><td>x is not a valid member of B</td>
+              </tr>
+              <tr>
+                <td>C[A=a]</td><td>Either</td><td>Invalid</td><td>Does not contain all dimensions for hypercube H</td>
+              </tr>
+              <tr>
+                <td>C[A=a,B=b,D=d]</td><td>Closed</td><td>Invalid</td><td>Contains a dimension that is not part of the hypercube</td>
+              </tr>
+              <tr>
+                <td>C[A=a,B=b,D=d]</td><td>Open</td><td>Valid</td><td>Additional dimension is allowed by open hypercube</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+        <p>
+
+  It should be noted that in the last case, no validation of the "D" dimension
+  occurs.  A concept or member called "d" may or may not be present in the
+  taxonomy, and even where it is, there is no domain-member tree attached to
+  the hypercube which would provide the relative ordering and hierarchy of
+  values used for the "D" dimension.
+
+        </p>
+        <p>
+
+  The example above demonstrates the validity of a fact against an individual
+  hypercube.  A concept may be associated with multiple hypercubes, in which
+  case the overall validity of a fact is determined by whether it is valid
+  against at least one of the associated hypercubes.  The use of open hypercubes
+  can have undesirable consequences in the case of a concept being associated
+  with multiple hypercubes where the dimensions of one are a subset of another.
+
+        </p>
+
+        <div class="chunkHeading"><a name="hypercube-validation" id="hypercube-validation"></a><p>Example 2: Validity of facts against multiple hypercubes</p></div><div class="nonNormativeExample">
+          
+          <p>
+
+  Consider now that C is associated with a second hypercube, H2[[A={a},B={b},D={d}]]
+
+          </p>
+          <p>
+
+  Now consider the fact C[A=a,B=b,D=x].  
+
+          </p>
+          <p>
+          
+  If H1 is open, then this fact will be
+  considered valid, even though x is not a valid member for the dimension D in
+  hypercube H2.  This is because the fact can successfully be validated against
+  H1 as, being an open hypercube, the additional dimension D is allowed and not
+  checked further.
+
+          </p>
+          <p>
+
+  If H1 is closed, then this fact is invalid against H1, because H1 does not
+  allow dimension D, and invalid against H2, as x is not a valid member for
+  dimension D.  The fact is therefore dimensionally invalid.
+      
+          </p>
+        </div>
+
+        <p>
+
+  The validation semantics shown in the example are almost certainly both
+  unexpected and undesirable.  If dimension defaults are used, this problem is
+  extended from hypercubes that are a subset of another's dimensions, to hypercubes
+  which have sets of dimensions which are merely overlapping.
+
+        </p>
+      </div>
+      <div class="div2"><a name="sec-use-cases" id="sec-use-cases"></a>
+        <h2>3.2 Use cases for open hypercubes</h2>
+        <p>
+
+The use case of open positive hypercubes is unclear.  If a given reporting environment
+does not allow extensions, then a taxonomy author will know about all
+dimensions which are available in the taxonomy, and is in a position to create
+closed hypercubes that explicitly allow all permissible combinations.  The use of
+dimension defaults makes it easy to be very flexible in the allowed
+combinations.
+
+        </p>
+        <p>
+
+On the other hand, in a reporting environment where taxonomy extensions are permitted,
+whilst the original taxonomy author may not know about all possible dimensions,
+authors of an extension taxonomy are in a position to create or extend
+closed hypercube definitions to meet their needs.
+  
+        </p>
+      </div>
+      <div class="div2"><a name="sec-negative-open-hypercubes" id="sec-negative-open-hypercubes"></a>
+        <h2>3.3 Negative hypercubes</h2>
+        <p>
+
+Concepts may be associated with hypercubes by one of two relationships: 
+"all" or "notAll".  These are often referred to as creating positive and
+negative hypercubes respectively.  Negative hypercubes specify combinations of
+dimension members which are invalid.
+  
+        </p>
+        <p>
+
+It is valid for a concept to have only negative hypercubes in a given base set.
+This arrangement immediately precludes <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#term-fdv">Full Dimensional Validity</a>, as any
+combination of dimension values which is not explicitly excluded by the
+associated hypercubes will be considered valid.
+
+        </p>
+        <p>
+
+A more normal arrangement is to use negative hypercubes only in conjunction
+with a positive hypercube to disallow specific regions within that positive
+hypercube.  In order to have any effect, the negative hypercube must describe a
+region that is within the positive hypercube which means that it must either be
+associated with the same set of dimensions as the positive hypercube, or with a
+strict subset of those dimensions.  In the latter case, it is necessary for the
+negative hypercube to be "open" in order that it applies to facts with all
+dimensions required by the positive hypercube.
+
+        </p>
+        <div class="chunkHeading"><a name="negative-hypercube-validation" id="negative-hypercube-validation"></a><p>Example 3: Validity of facts against negative hypercubes</p></div><div class="nonNormativeExample">
+          
+          <p>
+For example, consider a concept C associated by an "all" with closed hypercube H:
+          </p>
+          <div class="verbatim"><span class="verbatim-text">
+H[[A={a1,a2},B={b1,b2},C={c1,c2}]]
+          </span></div>
+          <p>
+          and by a "notAll" relationship with hypercube N
+          </p>
+          <div class="verbatim"><span class="verbatim-text">
+N[[A={a1},B={b1}]]
+          </span></div>
+          <p>
+Facts have the following validity against this combination of hypercubes:
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Fact</th><th>Hypercube N<br> Open/Closed</th><th>Validity</th><th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>C[A=a2,B=b1,C=c1]</td><td>Either</td><td>Valid</td><td>Not in the region excluded by N</td>
+              </tr>
+              <tr>
+                <td>C[A=a1,B=b1]</td><td>Either</td><td>Invalid</td><td>Does not include all necessary dimensions for H</td>
+              </tr>
+              <tr>
+                <td>C[A=a1,B=b1,C=c1]</td><td>Open</td><td>Invalid</td><td>N excludes A=b1, B=b1, and can ignore C as it is open.</td>
+              </tr>
+              <tr>
+                <td>C[A=a1,B=b1,C=c1]</td><td>Closed</td><td>Valid</td><td>N is closed and does not include dimension C</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p>
+
+When defining a negative hypercube, it may be convenient to specify a proper
+subset of the dimensions allowed by the positive hypercube.  In this case, the
+negative hypercube must be "open" in order to allow the remaining dimensions
+to take any value allowed by the positive hypercube.
+
+      </p>
+
+      <div class="div2"><a name="sec-non-dimensional-facts" id="sec-non-dimensional-facts"></a>
+        <h2>3.4 Non-dimensional facts</h2>
+        <p>
+
+As noted above, a fact is considered dimensionally valid if it is valid against
+at least one of the hypercubes with which its concept is associated.  Where a
+fact is reported against a concept with no associated hypercubes, dimensional
+validation is not applied at all, even if the fact includes XBRL dimension
+values.  The result is the same as if the concept were associated with an open
+hypercube with no dimensions.  This can be avoided by associating the concept with
+an empty, closed hypercube.
+
+        </p>
+        <div class="chunkHeading"><a name="non-dimensional facts" id="non-dimensional facts"></a><p>Example 4: Dimensions used on non-dimensional facts</p></div><div class="nonNormativeExample">
+          
+          <p>
+  Consider a concept Revenue that is not associated with any hypercubes.  As no
+  dimensional validation takes place, reporting facts against this concept with
+  dimensions is valid, for example:
+          </p>
+          <p class="code-paragraph">
+            <code>
+  Revenue[Country=UK] = $10
+            </code>
+          </p>
+          <p>
+  The dimension <code>Country</code> and the member <code>UK</code> are not
+  validated in any way, and may not even be present in the taxonomy, so all of
+  the following would also be valid:
+          </p>
+          <p class="code-paragraph">
+            <code>
+  Profit[LoanMaturity = OneYear] = $10 <br>
+  Profit[LoanMaturity = Europe] = $10 <br>
+  Profit[LonMaturty = eUrope] = $10 
+            </code>
+          </p>
+          <p>
+  Associating the concept with a closed, empty hypercube would prevent any
+  dimensions from being reported on corresponding facts.
+          </p>
+        </div>
+      </div>
+
+      <div class="div2"><a name="sec-open-hypercube-recommendation" id="sec-open-hypercube-recommendation"></a>
+        <h2>3.5 Recommendations</h2>
+        <p>
+
+It is desirable that all dimensional facts have <a href="https://www.xbrl.org/WGN/dimensions-use/WGN-2015-03-25/dimensions-use-WGN-2015-03-25.html#term-fdv">Full Dimensional Validity</a>.
+This gives rise to the following specific recommendations:
+
+        </p>
+        <ol>
+          <li>
+
+All positive hypercubes should be closed.
+
+          </li>
+          <li>
+
+Negative hypercubes should only be used in a base set in which there is also a positive hypercube.
+
+          </li>
+          <li>
+
+Where a taxonomy makes use of dimensions, all concepts should be associated with at
+least one hypercube, even if that hypercube has no associated dimensions.
+
+          </li>
+        </ol>
+        <p>
+
+In order to achieve the expected validation semantics, negative hypercubes
+should be open (in some scenarios, this will lead to the same validation
+semantics as a closed hypercube, but the recommendation is stated as is in the
+name of simplicity).
+
+        </p>
+      </div>
+    </div>
+    <div class="div1"><a name="sec-positive-and-negative-hypercubes" id="sec-positive-and-negative-hypercubes"></a>
+      <h1>4 Positive and negative hypercubes</h1>
+      <p>
+
+It is often the case that some combinations of dimensional values within a hypercube not considered valid reporting points, and it is desirable to prevent reports from including facts against these points.  There are a number of different approaches for achieving this:
+
+      </p>
+      <ol>
+        <li>Negative hypercubes.  Negative hypercubes may be used to specify regions within a positive hypercube that are dimensionally invalid.</li>
+        <li>Multiple positive hypercubes.  Rather than specifying the regions within a single positive hypercube that may not be reported, it is possible to achieve the same validation semantics using multiple smaller positive hypercubes identifying all the valid dimensional regions.</li>
+        <li>External validation of invalid data points.  A positive hypercube can be combined with validation rules imposed by XBRL Formula or some other mechanism to define the disallowed data points.</li>
+      </ol>
+      <p>
+
+Negative hypercubes allow invalid regions within a positive hypercube to be
+precisely identified, and enforced by XBRL Dimensons validation, however the
+concept of negative hypercubes can be unintuitive, and the syntax used to
+construct them is complex.
+
+      </p>
+      <p>
+
+From a validation perspective, anything that can be achieved by combining
+negative hypercubes with a positive hypercube can be achieved by combining
+multiple positive hypercubes, but this is not to say that the two approaches
+are entirely equivalent.  An approach that uses only positive hypercubes loses
+information about the relative positions of the valid regions.  This is shown
+in the following example:
+
+      </p>
+      <div class="chunkHeading"><a name="example-positive-negative" id="example-positive-negative"></a><p>Example 5: Defining invalid regions</p></div><div class="nonNormativeExample">
+        
+        <p>
+
+        Consider the following table, with two dimensions, A={a1,a2} and B={b1,b2}.
+
+        </p>
+        <table style="width: initial; margin: 10px;">
+          <tbody><tr>
+            <th style="width: 50px; height: 50px; "></th>
+            <th style="width: 50px; height: 50px;  vertical-align: middle">A=a1</th>
+            <th style="width: 50px; height: 50px;  vertical-align: middle">A=a2</th>
+          </tr>
+          <tr>
+            <th style="width: 50px; height: 50px;  vertical-align: middle">B=b1</th>
+            <td style="background-color: #aaa"></td>
+            <td style="vertical-align: middle; text-align: center;">1</td>
+          </tr>
+          <tr>
+            <th style="width: 50px; height: 50px; vertical-align: middle">B=b2</th>
+            <td style="vertical-align: middle; text-align: center;">2</td>
+            <td style="background-color: #aaa"></td>
+          </tr>
+        </tbody></table>
+        <p>
+        
+        Only the two points labelled 1 and 2 are valid.  This can be modelled using a positive hypercube for the whole table:
+        
+        </p>
+        <p class="code-paragraph">
+          <code>
+
+  P1[[A={a1,a2}, B={b1,b2}]]
+
+          </code>
+        </p>
+        <p>
+
+and two negative hypercubes:
+
+        </p>
+        <p class="code-paragraph">
+          <code>
+  N1[[A={a1}, B={b1}]]<br>
+  N1[[A={a2}, B={b2}]]
+          </code>
+        </p>
+        <p>
+
+        The same validation semantics can be acheived with two positive hypercubes, identifying the two allowed cells:
+
+        </p>
+
+        <p class="code-paragraph">
+          <code>
+  P2[[A={a1}, B={b2}]]<br>
+  P3[[A={a2}, B={b1}]]
+          </code>
+        </p>
+        <p>
+
+        What is lost in this arrangement is the relative positioning of the two
+        valid cells.  When using the first approach, the dimensions attached to
+        the positive hypercube P1 give us the overall order of the members for
+        those dimensions.  i.e. a1 comes before a2, b1 comes before b2.  In this
+        second example, we have two completely independent regions of allowed
+        space:
+
+        </p>
+        <table style="width: initial; margin: 10px;">
+          <tbody><tr>
+            <th style="width: 50px; height: 50px; "></th>
+            <th style="width: 50px; height: 50px;  vertical-align: middle">A=a1</th>
+          </tr>
+          <tr>
+            <th style="width: 50px; height: 50px; vertical-align: middle">B=b2</th>
+            <td style="vertical-align: middle; text-align: center;">2</td>
+          </tr>
+        </tbody></table>
+        <table style="width: initial; margin: 10px;">
+          <tbody><tr>
+            <th style="width: 50px; height: 50px; "></th>
+            <th style="width: 50px; height: 50px;  vertical-align: middle">A=a2</th>
+          </tr>
+          <tr>
+            <th style="width: 50px; height: 50px;  vertical-align: middle">B=b1</th>
+            <td style="vertical-align: middle; text-align: center;">1</td>
+          </tr>
+        </tbody></table>
+        <p>
+        It is not possible to infer the arrangement shown in the original table
+        from the information present in the taxonomy.
+        </p>
+      </div>
+      <p>
+
+The importance of maintaining the overall structure of the main hypercube will
+depend on the application.  Where the Table Linkbase specification is used to
+provide table renderings, the importance of maintaining the structure of tables
+in the dimensional definition is diminished.
+
+      </p>
+      <p>
+
+The third approach of using external validation, such as XBRL Formula, to
+define disallowed regions means that the overall structure of the table can be
+maintained in a single positive hypercube, but it introduces a different
+potential problem.  XBRL Formula, and other such mechanisms, do not lend
+themselves to static analysis.  In other words, whilst they can identify
+whether a given fact is valid or not, they cannot readily provide a list of the
+allowed facts.  This makes it impossible to present the type of view shown in
+the original example where disallowed cells are greyed out.
+
+      </p>
+      <div class="div2"><a name="sec-positive-negative-recommendation" id="sec-positive-negative-recommendation"></a>
+        <h2>4.1 Recommendation</h2>
+        <p>
+
+No specific recommendation on the approach to be used is made here, but when
+choosing an approach it is important to note that providing equivalent
+validation results does not mean that the approaches are semantically
+equivalent.
+
+        </p>
+      </div>
+
+    </div>
+    <div class="div1"><a name="sec-dimension-defaults" id="sec-dimension-defaults"></a>
+      <h1>5 Dimension defaults</h1>
+      <p>
+
+The XBRL Dimensions specification allows facts dimensions to have a default
+value.  This is a value that may be assumed when the dimension is not reported
+for a fact. 
+
+      </p>
+      <div class="chunkHeading"><a name="dimension-defaults" id="dimension-defaults"></a><p>Example 6: Defaulted dimensions</p></div><div class="nonNormativeExample">
+      
+
+      <p>
+For example, consider the concept "Revenue" associated with hypercube HC:
+      </p>
+      <p class="code-paragraph">
+        <code>
+ HC[[Region={All Regions,Asia-Pac,EMEA,Americas},Segment={Services,Products}]].
+        </code>
+      </p>
+      <p>
+By providing a default for "Region" of "All Regions", a fact reported as:
+      </p>
+      <p class="code-paragraph">
+        <code>
+  Revenue[Segment=Services]
+        </code>
+      </p>
+      <p>
+is understood to mean:
+      </p>
+      <p class="code-paragraph">
+        <code>
+  Revenue[Region=All Regions, Segment=Services]
+        </code>
+      </p>
+      <p>
+and is valid against the HC hypercube.
+      </p>
+      </div>
+      <p>
+
+Dimension defaults can be appealing, as it means that a fact that requires a
+dimension, but which is reported against the "total" member ("Region=All Regions", in the
+example above) are reported consistently to those which do not require that
+dimension at all.
+      </p>
+      <p>
+
+It should be noted that dimension defaults are <em>global</em>, and apply to
+all facts that do not explicitly report a value for that dimension, regardless of
+the hypercubes with which the concepts are associated.  This can lead to
+somewhat unintuitive behaviour.  In the example above, applying the default of
+"Region=All Regions" across all facts may seem reasonable, but consider a dimension
+used to indicate loan maturity, for example:
+  
+      </p>
+      <p class="code-paragraph">
+        <code>
+  Maturity={All Maturities, Less than 1 year, More than 1 year}
+        </code>
+      </p>
+      <p>
+
+In this case, "All Maturities" is the natural choice for a default, but it may
+be unintuitive to see this associated with facts that are unrelated to loans,
+such as the Revenue fact reported above.  This is not inherently problematic,
+but tools may correctly show all default dimensions when displaying a fact.
+
+      </p>
+      <p>
+
+Choosing a default value which is not the natural total for a dimension is
+clearly more problematic.  For example, selecting "Less than 1 year" as the default for the "Maturity" dimension would mean that the Revenue fact reported above would be understood to mean:
+
+      </p>
+      <p class="code-paragraph">
+        <code>
+
+  Revenue[Region=All Regions, Segment=Services, Maturity=Less than 1 year]
+
+        </code>
+      </p>
+      <p>
+This is unlikely to be what was intended.
+      </p>
+      <div class="div2"><a name="sec-dimension-defaults-recommendation" id="sec-dimension-defaults-recommendation"></a>
+        <h2>5.1 Recommendation</h2>
+        <p>
+When using dimension defaults, it is important that their global nature is understood.
+        </p>
+        <ul>
+          <li>Dimension defaults should only be used to specify a member which is the natural total for a domain.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="div1"><a name="sec-complex-typed-dimensions" id="sec-complex-typed-dimensions"></a>
+      <h1>6 Complex typed dimensions</h1>
+      <p>
+
+The XBRL Dimensions specification allows for the creation of typed dimensions
+based on any XML Schema data type.  Common practice is to use XML Schema simple
+types for typed dimensions, but the specification explicitly allows the option
+of using complex types.
+
+      </p>
+      <p>
+
+A complex type effectively allows a single dimension value to be made up of
+multiple component values.  Complex typed dimensions are inherently difficult
+for XBRL tools to render, or provide a data-entry interface to.  In the case of
+a simple typed dimension, the dimension provides labels for the dimension
+value.  For example, a simple typed dimension representing a customer number
+might have a dimension called <code class="element"> &lt;CustomerID&gt; </code>, with a type of
+<code>xsd:integer</code>, and an English label of "Customer Number" associated
+with it.  An XBRL tool can use that label to describe the single dimension
+value provided by the simple type, and taxonomy authors are free to provide
+labels in other languages (or with other types).
+
+      </p>
+      <p>
+
+In the case of a complex typed dimension, there is no mechanism for providing
+labels for the elements that make up the complex type.  The XBRL Dimensions
+specification uses an example of a telephone number as a complex typed
+dimension, with separate elements representing the country code, city code and
+number:
+
+      </p>
+      <div class="verbatim">&lt;<span class="verbatim-element-name">phone</span><span class="verbatim">&gt;</span><div class="verbatim">&lt;<span class="verbatim-element-name">country</span><span class="verbatim">&gt;</span><div class="verbatim"><span class="verbatim-text">7</span></div><span class="verbatim">&lt;/<span class="verbatim-element-name">country</span>&gt;</span></div><div class="verbatim">&lt;<span class="verbatim-element-name">city</span><span class="verbatim">&gt;</span><div class="verbatim"><span class="verbatim-text">7</span></div><span class="verbatim">&lt;/<span class="verbatim-element-name">city</span>&gt;</span></div><div class="verbatim">&lt;<span class="verbatim-element-name">number</span><span class="verbatim">&gt;</span><div class="verbatim"><span class="verbatim-text">5555555</span></div><span class="verbatim">&lt;/<span class="verbatim-element-name">number</span>&gt;</span></div><span class="verbatim">&lt;/<span class="verbatim-element-name">phone</span>&gt;</span></div>
+      <p>
+
+There is no mechanism for labelling the contained elements such as
+<code class="element"> &lt;phone&gt; </code> or <code class="element"> &lt;country&gt; </code> so in the absence of hard-coded
+information about the taxonomy, an XBRL tool has no way of displaying this
+information in a user-friendly format, and will typically resort to exposing
+the raw XML to the end-user.
+
+      </p>
+      <p>
+
+The example from the Dimensions specification is not particularly realistic:
+where telephone numbers are included in a taxonomy, they are typically modelled
+as concepts, rather than dimensions, and are not typically broken up into
+components.  More generally, real world experience has not yet revealed any use
+cases for complex typed dimension that cannot be adequately (or better)
+represented as multiple simple typed dimensions.
+
+      </p>
+      <div class="div2"><a name="sec-complex-typed-dimensions-recommendations" id="sec-complex-typed-dimensions-recommendations"></a>
+        <h2>6.1 Recommendations</h2>
+        <ul>
+          <li>Typed dimensions should only use XML Schema simple types as their data type.</li>
+        </ul>
+      </div>
+    </div>
+  </div><div class="back">
+    <div class="div1"><a name="sec-references" id="sec-references"></a>
+      <h1>Appendix A References</h1>
+      <dl>
+        
+
+      <dt class="label"><a name="DIMENSIONS" id="DIMENSIONS"></a>DIMENSIONS</dt><dd>XBRL International Inc.. "XBRL Dimensions 1.0"<span><br>Ignacio Hernández-Ros</span><span>, and Hugh Wallis.</span><br>(See <a href="http://www.xbrl.org/Specification/XDT-REC-2006-09-18.htm">http://www.xbrl.org/Specification/XDT-REC-2006-09-18.htm</a>)</dd></dl>
+    </div>
+    <div class="div1"><a name="sec-ip-status" id="sec-ip-status"></a>
+  <h1>Appendix B Intellectual property status (non-normative)</h1>
+  
+  <p>
+    This document and translations of it may be copied and
+    furnished to others, and derivative works that comment on or
+    otherwise explain it or assist in its implementation may be
+    prepared, copied, published and distributed, in whole or in
+    part, without restriction of any kind, provided that the above
+    copyright notice and this paragraph are included on all such
+    copies and derivative works. However, this document itself may
+    not be modified in any way, such as by removing the copyright
+    notice or references to XBRL International or XBRL
+    organizations, except as required to translate it into
+    languages other than English. Members of XBRL International
+    agree to grant certain licenses under the XBRL International
+    Intellectual Property Policy 
+    (<a href="http://www.xbrl.org/legal">www.xbrl.org/legal</a>).
+  </p>
+
+
+  <p>
+    This document and the information contained herein is provided
+    on an "AS IS" basis and XBRL INTERNATIONAL DISCLAIMS ALL
+    WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+    ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT
+    INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+    MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+  </p>
+
+  <p>
+    The attention of users of this document is directed to the
+    possibility that compliance with or adoption of XBRL
+    International specifications may require use of an invention
+    covered by patent rights. XBRL International shall not be
+    responsible for identifying patents for which a license may be
+    required by any XBRL International specification, or for
+    conducting legal inquiries into the legal validity or scope of
+    those patents that are brought to its attention. XBRL
+    International specifications are prospective and advisory
+    only. Prospective users are responsible for protecting
+    themselves against liability for infringement of patents. XBRL
+    International takes no position regarding the validity or
+    scope of any intellectual property or other rights that might
+    be claimed to pertain to the implementation or use of the
+    technology described in this document or the extent to which
+    any license under such rights might or might not be available;
+    neither does it represent that it has made any effort to
+    identify any such rights. Members of XBRL International agree
+    to grant certain licenses under the XBRL International
+    Intellectual Property Policy 
+    (<a href="http://www.xbrl.org/legal">www.xbrl.org/legal</a>).
+  </p>
+</div>
+    <div class="div1"><a name="sec-acknowledgements" id="sec-acknowledgements"></a>
+      <h1>Appendix C Acknowledgements (non-normative)</h1>
+    </div> 
+    <div class="div1"><a name="sec-history" id="sec-history"></a>
+      <h1>Appendix D Document history</h1>
+      <table class="revisions"><tbody><tr><th>Date</th><th>Author</th><th>Details</th></tr>
+        <tr><td>25 March 2015</td><td>Paul Warren</td><td>
+          <p class="revision">
+First public release.
+          </p>
+        </td></tr>
+      </tbody></table>
+    </div>
+    <div class="div1"><a name="sec-corrections" id="sec-corrections"></a>
+  <h1>Appendix E Errata corrections in this document</h1>
+  
+  <p>
+    This appendix contains a list of the errata that have been
+    incorporated into this document. This represents all those
+    errata corrections that have been approved by the XBRL
+    International Base Specification and Maintenance Working Group up to and
+    including 25 March 2015. 
+    Hyperlinks to relevant e-mail threads may
+    only be followed by those who have access to the relevant
+    mailing lists. Access to internal XBRL mailing lists is
+    restricted to members of XBRL International Inc.
+  </p>
+  
+  <p>No errata have been incorporated into this document.</p>
+  
+</div>
+  </div></body></html>

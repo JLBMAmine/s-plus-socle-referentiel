@@ -1,0 +1,16 @@
+﻿# Fichiers système Windows
+Thumbs.db
+desktop.ini
+Desktop.ini
+*.lnk
+
+# Fichiers temporaires Excel/Word
+~$*
+
+# Logs et inventaires temporaires
+inventaire.txt
+arborescence-resume.csv
+arborescenceresume.csv
+
+# Dossiers OS
+.DS_Store
