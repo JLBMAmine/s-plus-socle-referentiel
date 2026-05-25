@@ -24,7 +24,9 @@ Bibliothèque de référence comptable pour le projet S+ — outil hybride méth
 
 ## Statut
 
-Repo de référence statique. Pas de code applicatif. Sources figées à leurs versions de téléchargement (mai 2026).
+Dépôt de référence statique. Pas de code applicatif. Sources figées à leurs versions de téléchargement (mai 2026).
+
+Ce dépôt est une **compilation de références** pour le développement du projet S+. Il n'est pas une publication officielle de l'IFRS Foundation, de XBRL International ou de l'ARC.
 
 ## À venir
 
@@ -32,12 +34,18 @@ Repo de référence statique. Pas de code applicatif. Sources figées à leurs v
 - Ajout des fichiers Caseware et IGRF
 - Nouvelle taxonomie IFRS-PME standalone alignée sur la 3e édition de l'IFRS for SMEs (publication attendue 2027)
 
-## Licences
+## Licences et attributions
 
-Les contenus IFRS sont publiés par l'IFRS Foundation sous les conditions d'usage IFRS Taxonomy Terms and Conditions (voir go.ifrs.org/IFRSTterms). Usage interne S+ uniquement.
+Voir le fichier [NOTICE.md](NOTICE.md) à la racine pour les détails sur l'origine et les conditions d'usage de chaque source incluse dans ce dépôt.
 
-## Sources
+Résumé :
+- Contenus IFRS : © IFRS Foundation, conformément aux [IFRS Taxonomy Terms and Conditions](https://go.ifrs.org/IFRSTterms)
+- Spécifications XBRL : © XBRL International
+- IGRF : publié par l'Agence du revenu du Canada (ARC)
+- Caseware : référence de pratique professionnelle
 
-- IFRS Taxonomy : ifrs.org/issued-standards/ifrs-taxonomy/
-- XBRL Specs : specifications.xbrl.org
-- IGRF (ARC) : canada.ca/fr/agence-revenu
+## Sources officielles
+
+- IFRS Taxonomy : https://www.ifrs.org/issued-standards/ifrs-taxonomy/
+- XBRL Specs : https://specifications.xbrl.org
+- IGRF (ARC) : https://www.canada.ca/fr/agence-revenu
