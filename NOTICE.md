@@ -29,15 +29,22 @@ Les fichiers contenus dans `xbrl-specs/` sont publiés par XBRL International (s
 
 **Éditeur** : Agence du revenu du Canada (ARC)
 **Source officielle** : https://www.canada.ca/fr/agence-revenu.html
+**Document de référence** : RC4088(F) Rév. 23 — Index général des renseignements financiers (IGRF)
 
-Le contenu du dossier `igrf/` provient de documents publics publiés par l'ARC, destinés à la déclaration T2 des sociétés canadiennes.
+Le contenu du dossier `igrf/` provient de documents publics publiés par l'ARC, destinés à la déclaration T2 des sociétés canadiennes et à la déclaration T5013 des sociétés de personnes. Il comprend :
 
-## Codes de liaison Caseware
+- `codes-igrf.xlsx` — liste tabulaire des codes IGRF (Excel)
+- `guide-igrf-rc4088-arc.pdf` — guide officiel RC4088 contenant les définitions et instructions de déclaration (PDF)
+- `guide-html-igrf-rc4088-arc.html` — version HTML du guide officiel RC4088 (structure exploitable pour le parsing automatisé)
 
-**Éditeur** : Caseware International (référentiel professionnel)
-**Usage** : référence d'inspiration pour la pratique comptable PME au Québec
+## Codes de mapping Caseware
 
-Le fichier dans `caseware/` est un référentiel de pratique professionnelle utilisé en cabinet. Il est inclus ici uniquement à titre de référence d'usage interne au projet S+.
+**Origine** : Référentiel de codes de mapping élaboré dans le cadre d'un usage professionnel du logiciel Caseware.
+**Statut** : Aucune donnée client. Aucune propriété intellectuelle de Caseware International.
+
+Le fichier dans `caseware/` est un référentiel de codes de mapping élaboré dans le cadre d'un usage professionnel du logiciel Caseware. Il ne contient aucune donnée client ni propriété intellectuelle de Caseware International. Il est publié ici à titre de référence d'organisation comptable, comme inspiration des pratiques PME québécoises.
+
+Caseware® est une marque déposée de Caseware International Inc. Le projet S+ n'est pas affilié à Caseware International.
 
 ## Statut de ce dépôt
 
